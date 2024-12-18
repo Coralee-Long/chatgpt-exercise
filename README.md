@@ -9,34 +9,27 @@ ingredients.**
   * [2. Project Structure](#2-project-structure)
   * [3. Core Components](#3-core-components)
   * [4. IngredientController](#4-ingredientcontroller)
-    * [Key Points](#key-points)
   * [5. IngredientService](#5-ingredientservice)
-    * [6. Key Points](#6-key-points)
   * [7. IngredientService](#7-ingredientservice)
-    * [Key Points](#key-points-1)
   * [8. ChatGptApiService](#8-chatgptapiservice)
-    * [Key Points](#key-points-2)
   * [9. DTOs (Data Transfer Objects)](#9-dtos-data-transfer-objects)
     * [1. ChatGptRequest](#1-chatgptrequest)
     * [2. ChatGptMessage](#2-chatgptmessage)
     * [3. ChatGptResponse](#3-chatgptresponse)
     * [4. ChatGptChoice](#4-chatgptchoice)
     * [5. ChatGptResponseFormat](#5-chatgptresponseformat)
-    * [Key Points](#key-points-3)
   * [10. Testing with Postman](#10-testing-with-postman)
     * [1. Request Setup](#1-request-setup)
     * [2. Headers](#2-headers)
     * [3. Request Body](#3-request-body)
     * [4. Response](#4-response)
-    * [Key Points](#key-points-4)
   * [11. Error Handling](#11-error-handling)
     * [Common Errors and Fixes](#common-errors-and-fixes)
-    * [Key Points](#key-points-5)
-  * [EXTRA: How to Kill a process on a port](#extra-how-to-kill-a-process-on-a-port)
-
+  * [EXTRA: How to Kill a Process on a Port](#extra-how-to-kill-a-process-on-a-port)
+    * [On Mac/Linux:](#on-maclinux)
 <!-- TOC -->
 
----
+
 
 ## 1. Project Setup
 
@@ -62,7 +55,7 @@ ingredients.**
 
     `chatgpt.api.key=${YOUR_API_KEY}`
 
----
+
 
 ## 2. Project Structure
 
@@ -85,7 +78,7 @@ src/
 └── application.properties
 ```
 
----
+
 
 ## 3. Core Components
 
@@ -100,7 +93,7 @@ src/
    - **ChatGptApiService**: Handles communication with the OpenAI API, sends prompts, and retrieves results.
    - **DTOs (Data Transfer Objects)**: Classes used to map the request sent to and response received from the ChatGPT API.
 
----
+
 
 ## 4. IngredientController
 
@@ -127,7 +120,7 @@ public class IngredientController {
 }
 ```
 
-### Key Points:
+**Key Points:**
 - `@RestController`: Marks the class as a REST controller that handles HTTP 
 requests.
 - `@RequestMapping("/ingredients")`: Maps the base endpoint to `/ingredients`.
@@ -137,20 +130,18 @@ requests.
   `IngredientService`.
 
 **Example:**
-```json
+```html
 // input
-{
-  "ingredient": "cheese"
-}
-
+    {
+      "ingredient": "cheese"
+    }
+    
 // output
-{ 
-  "ingredient": "cheese",
-  "classification": "regular"
-}
+    { 
+      "ingredient": "cheese",
+      "classification": "regular"
+    }
 ```
-
----
 
 ## 5. IngredientService
 
@@ -189,7 +180,7 @@ public class IngredientService {
 }
 ```
 
-### 6. Key Points:
+**Key Points:**
 - **`@Service`**: Marks this class as a Spring service.
 - **Delegation to ChatGptApiService**: The service calls `getChatGptResponse()` to get the API response.
 - **JSON Parsing**:
@@ -197,7 +188,7 @@ public class IngredientService {
     - Extracts the `classification` value.
 - **Error Handling**: Wraps potential parsing errors with a custom runtime exception.
 
----
+
 
 ## 7. IngredientService
 
@@ -223,12 +214,12 @@ public class IngredientService {
 }
 ```
 
-### Key Points:
+**Key Points:**
 - **`@Service`**: Marks this class as a Spring service.
 - **Delegation**: The `categorize` method directly calls `getChatGptResponse()` from the `ChatGptApiService`.
 - **Simplicity**: This implementation keeps the service lightweight and avoids additional processing.
 
----
+
 
 ## 8. ChatGptApiService
 
@@ -288,7 +279,7 @@ public class ChatGptApiService {
 }
 ```
 
-### Key Points:
+**Key Points:**
 - **`@Service`**: Marks this class as a Spring service.
 - **`RestClient`**: Handles HTTP requests to the ChatGPT API.
 - **Request Building**: Constructs a `ChatGptRequest` with:
@@ -298,7 +289,7 @@ public class ChatGptApiService {
 - **Headers**: Adds the OpenAI API key in the `Authorization` header.
 - **Response Parsing**: Retrieves the response and extracts the content field.
 
----
+
 
 ## 9. DTOs (Data Transfer Objects)
 
@@ -378,7 +369,7 @@ public record ChatGptResponseFormat(
 ) {}
 ```
 
-### Key Points:
+**Key Points:**
 - **Request DTOs**:
     - `ChatGptRequest`: Combines the model, messages, and response format.
     - `ChatGptMessage`: Holds the role (`user`) and content (the prompt).
@@ -387,7 +378,7 @@ public record ChatGptResponseFormat(
     - `ChatGptChoice`: Extracts the response message.
 - **Clean Structure**: Using records simplifies the code and makes DTOs immutable.
 
----
+
 
 ## 10. Testing with Postman
 
@@ -420,12 +411,12 @@ public record ChatGptResponseFormat(
 }
 ```
 
-### Key Points:
+**Key Points:**
 - Use `Content-Type: application/json` in the headers to ensure the request body is interpreted correctly.
 - The API will classify the ingredient and return both the input and its classification.
 - Ensure your application is running on the correct port (`8080` by default).
 
----
+
 
 ## 11. Error Handling
 
@@ -446,12 +437,12 @@ public record ChatGptResponseFormat(
     - **Fix**: Kill the conflicting process or change the port in 
       **application.properties:** `server.port=8081`
 
-### Key Points:
+**Key Points:**
 - Always include "Respond in JSON format" in the API prompt to ensure valid responses.
 - Handle potential JSON parsing errors with a try-catch block in the service layer.
 - Monitor the application logs for detailed error messages to diagnose issues.
 
----
+
 
 ## EXTRA: How to Kill a Process on a Port
 
