@@ -37,7 +37,7 @@ public class ChatGptApiService {
 
 			// Create the ChatGPT request
 			ChatGptRequest request = new ChatGptRequest(
-					"gpt-3.5-turbo",
+					"gpt-4o-mini",
 					List.of(new ChatGptMessage("user", prompt)),
 					new ChatGptResponseFormat("json_object")
 			);
